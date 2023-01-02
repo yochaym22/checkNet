@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Number Form</title>
+  </head>
+  <body>
+    <form id="number-form">
+      <label for="number">Number:</label><br>
+      <input type="number" id="number" name="number" min="2500" max="3540"><br>
+      <input type="submit" value="Submit">
+    </form> 
+    <div id="result"></div>
+  </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  const url = 'http://localhost:5000/'
+  $(document).ready(function() {
+    $('#number-form').submit(function(event) {
+    event.preventDefault();
+    var number = $('#number').val();
+    if (number >= 2500 && number <= 3540) {
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: {number: number},
+        success: function(response) {
+          $("#result").empty();
+          console.log(response.strong_num)
+          for (var i = 0; i < response.numbers.length; i++) {
+            var txt = $("<p></p>").text(response.numbers[i])
+            $("#result").append(txt)
+          }
+          var txt = $("<p></p>").text('the strong number is :' + response.strong_num)
+          console.log(response.strong_num)
+          $("#result").append(txt)
+        }
+      });
+    } else {
+      $('#result').html('Invalid number');
+    }
+   });
+  });  
+</script>
