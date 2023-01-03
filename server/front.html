@@ -16,24 +16,24 @@
 
 <script>
   const url = 'http://localhost:5000/'
+  const min = 2500
+  const max = 3540
   $(document).ready(function() {
     $('#number-form').submit(function(event) {
     event.preventDefault();
     var number = $('#number').val();
-    if (number >= 2500 && number <= 3540) {
+    if (number >= min && number <= max) {
       $.ajax({
         type: 'POST',
         url: url,
         data: {number: number},
         success: function(response) {
           $("#result").empty();
-          console.log(response.strong_num)
           for (var i = 0; i < response.numbers.length; i++) {
             var txt = $("<p></p>").text(response.numbers[i])
             $("#result").append(txt)
           }
           var txt = $("<p></p>").text('the strong number is :' + response.strong_num)
-          console.log(response.strong_num)
           $("#result").append(txt)
         }
       });

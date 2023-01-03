@@ -22,7 +22,7 @@ app.post('/', async(req, res) => {
     const scrap_res = await fetch(BASE_SCRAPPER_URL + game_number)
 
     if (!scrap_res.ok){
-        console.log('faild')
+        console.log('failed')
         throw new Error('error status: '+ scrap_res.status);
     }
     const result = await scrap_res.json()
